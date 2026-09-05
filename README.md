@@ -148,8 +148,7 @@ Verified source: [`contracts/contracts/SoulboundCertificate.sol`](contracts/cont
 
 ## Demo Video
 
-<!-- Placeholder: to be added before final submission -->
-- **Video Link**: `TBD`
+- **Video Link**: https://drive.google.com/file/d/17McMOvzWm8bN_mjuXxQkg2i9alZheBVk/view?usp=sharing
 
 ---
 
