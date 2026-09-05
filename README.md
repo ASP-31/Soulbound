@@ -31,6 +31,26 @@ A traditional NFT can be transferred or sold, which makes it unsuitable for repr
 
 ---
 
+## Trust Model
+
+A credential is only meaningful when its issuer is trusted. `soulbound.cert` separates **credential ownership** from **credential authority**:
+
+- 👤 **Holder** — owns the wallet-bound credential.
+- 🏛️ **Issuer** — an authorized wallet that can issue credentials.
+- 🔗 **Blockchain** — provides the public, independently verifiable record of issuance and revocation.
+- 📦 **IPFS** — stores content-addressed credential metadata.
+
+Verification answers four fundamental questions:
+
+1. **Does the credential exist?**
+2. **Who owns it?**
+3. **Who issued it?**
+4. **Is it currently valid?**
+
+> `soulbound.cert` does not claim that blockchain determines whether an achievement is true — it provides a tamper-evident way to verify that a trusted issuer issued a specific credential and whether that issuer has revoked it.
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -58,7 +78,7 @@ A traditional NFT can be transferred or sold, which makes it unsuitable for repr
 │  Contract    │ ◄──────────────  │  (stored)    │
 │  (Sepolia)   │                  └──────────────┘
 └──────┬──────┘
-       │ certificateOf / tokenURI / isValid
+       │ certificatesOf / tokenURI / isValid
        ▼
 ┌─────────────┐
 │   /verify    │  read-only, no wallet needed
@@ -66,7 +86,7 @@ A traditional NFT can be transferred or sold, which makes it unsuitable for repr
 ```
 
 1. Issuer fills the form → metadata JSON is pinned to Pinata → `ipfs://<hash>` returned.
-2. Only that hash (`uri`) is minted on-chain via `issueCertificate(recipient, uri)`.
+2. Only the content-addressed IPFS URI (`uri`) is stored on-chain via `issueCertificate(recipient, uri)`.
 3. Verification reads the on-chain `tokenURI`, resolves the referenced metadata from IPFS, and displays the credential. Because IPFS uses content addressing, modified content produces a different CID and cannot silently replace the metadata referenced on-chain.
 
 ---
