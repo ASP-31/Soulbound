@@ -62,9 +62,8 @@ npm run dev
 ---
 
 ## Deployed Contract (Sepolia)
-<!-- Placeholder: to be updated post-deployment -->
-- **Contract Address**: `TBD`
-- **Etherscan Link**: `TBD`
+- **Contract Address**: [`0x03a2470a4b018E9BbaDD9742B9cb98745A1C3Fa8`](https://sepolia.etherscan.io/address/0x03a2470a4b018E9BbaDD9742B9cb98745A1C3Fa8)
+- **Etherscan Link**: https://sepolia.etherscan.io/address/0x03a2470a4b018E9BbaDD9742B9cb98745A1C3Fa8
 - **Network**: Sepolia (Chain ID: 11155111)
 
 ---
