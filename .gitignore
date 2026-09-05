@@ -25,6 +25,7 @@ coverage.json
 out/
 build/
 dist/
+*.tsbuildinfo
 
 # Logs
 npm-debug.log*
