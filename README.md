@@ -71,8 +71,8 @@ Verification answers four fundamental questions:
 │   /issue     │ ───────────────► │  /api/pin     │
 │  (wallet)    │                  │ (Pinata JWT)  │
 └──────┬──────┘                  └──────┬───────┘
-       │                                │ ipfs://<hash>
-       │ issueCertificate(to, uri)      ▼
+       │                                │ ipfs://<CID>
+       │ issueCertificate(to, ipfsURI)  ▼
        ▼                          ┌──────────────┐
 ┌─────────────┐   tokenURI ─────► │   IPFS       │
 │  Contract    │ ◄──────────────  │  (stored)    │
