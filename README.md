@@ -13,6 +13,7 @@ Built for **HackBlox 2026 · Web3 Track · Problem Statement 02** — *On-Chain 
 - ✅ **Zero-friction verification** — anyone can verify a certificate with just the wallet address or token ID, no wallet or login required.
 - 🏗️ **Issuer role management** — owner-only `addIssuer` / `removeIssuer`; issuers mint and revoke.
 - 🔄 **Revocation** — certificates can be revoked on-chain (e.g. disciplinary action), instantly reflected in verification.
+- 💾 **Persistent mint history** — issued certificates are stored locally in the browser, surviving navigation and reloads (with a one-click clear).
 - 🔗 **Fully verified on Etherscan** with a live Sepolia deployment.
 - 🧪 **Working end-to-end demo** — connect wallet → pin metadata → mint → view session history → revoke → verify.
 
