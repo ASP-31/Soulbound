@@ -89,7 +89,7 @@ export function SessionMintedList({
   if (items.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-zinc-800 p-6 text-center text-sm text-zinc-500">
-        No certificates minted in this session yet.
+        No certificates have been minted yet.
       </div>
     );
   }

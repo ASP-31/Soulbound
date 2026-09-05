@@ -28,6 +28,11 @@ import {
   SOULBOUND_ABI,
 } from "@/lib/contract";
 import { publicClient } from "@/lib/viemPublicClient";
+import {
+  clearMintedSession,
+  loadMintedSession,
+  saveMintedSession,
+} from "@/lib/sessionHistory";
 import { SessionMintedList } from "@/components/SessionMintedList";
 import type {
   IssueStatus,
@@ -73,10 +78,27 @@ export default function IssuePage() {
   const [statusError, setStatusError] = useState<string | null>(null);
   const [mintTxHash, setMintTxHash] = useState<Hash | null>(null);
 
-  const [session, setSession] = useState<MintedCertificate[]>([]);
+  const [session, setSession] = useState<MintedCertificate[]>(() =>
+    loadMintedSession(),
+  );
   const [revokeStatus, setRevokeStatus] = useState<Record<string, RevokeState>>({});
 
+  useEffect(() => {
+    saveMintedSession(session);
+  }, [session]);
+
   const stubCounter = useRef(0);
+  const counterSeeded = useRef(false);
+  useEffect(() => {
+    if (counterSeeded.current) return;
+    counterSeeded.current = true;
+    const max = session.reduce((maxId, item) => {
+      const id = Number(item.tokenId);
+      return Number.isFinite(id) ? Math.max(maxId, id) : maxId;
+    }, 0);
+    stubCounter.current = Math.max(stubCounter.current, max);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const processedHash = useRef<Hash | null>(null);
   const pendingMint = useRef<PendingMint | null>(null);
 
@@ -575,13 +597,29 @@ export default function IssuePage() {
       )}
 
       <section className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
-            Session Mint History
-          </h2>
-          <span className="rounded-full border border-zinc-800 bg-zinc-900 px-2 py-0.5 font-mono text-[11px] text-zinc-400">
-            {session.length}
-          </span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+              Session Mint History
+            </h2>
+            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-2 py-0.5 font-mono text-[11px] text-zinc-400">
+              {session.length}
+            </span>
+          </div>
+          {session.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setRevokeStatus({});
+                setSession([]);
+                clearMintedSession();
+              }}
+              disabled={busy}
+              className="inline-flex items-center gap-1.5 rounded-md border border-zinc-700 bg-zinc-900 px-2.5 py-1 font-mono text-xs font-semibold text-zinc-400 transition-colors hover:border-zinc-500 hover:text-zinc-200 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <XCircle className="h-3.5 w-3.5" /> Clear
+            </button>
+          )}
         </div>
         <SessionMintedList
           items={session}
