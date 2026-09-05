@@ -1,6 +1,6 @@
-# Soulbound Certificates — `soulbound.cert`
+# soulbound.cert
 
-> An on-chain verifiable credential platform that mints tamper-proof, **non-transferable** Soulbound ERC-721 certificates to student wallets — with IPFS-anchored metadata and zero-friction public verification.
+> **Trustless infrastructure for verifiable skills & credentials.** `soulbound.cert` is a decentralized platform that lets trusted organizations issue **tamper-evident, non-transferable, publicly verifiable credentials** — academic, professional, skill-based, and more — directly to an individual's wallet.
 
 Built for **HackBlox 2026 · Web3 Track · Problem Statement 02** — *On-Chain Verifiable Credentials (Soulbound Certificates)*.
 
@@ -9,13 +9,16 @@ Built for **HackBlox 2026 · Web3 Track · Problem Statement 02** — *On-Chain 
 ## Highlights
 
 - 🧠 **Soulbound ERC-721** — tokens are minted to a wallet and can *never* be transferred or sold (overridden `_update`).
-- 🛡️ **Tamper-proof metadata** — certificate details are pinned to IPFS, and only the content-addressed `ipfs://` hash lives on-chain. Editing the record changes the hash — instant fraud detection.
-- ✅ **Zero-friction verification** — anyone can verify a certificate with just the wallet address or token ID, no wallet or login required.
+- 🛡️ **Tamper-proof metadata** — credential details are pinned to IPFS, and only the content-addressed `ipfs://` hash lives on-chain. Editing the record changes the hash — instant fraud detection.
+- ✅ **Zero-friction verification** — anyone can verify a credential with just the wallet address or token ID, no wallet or login required.
+- 🔗 **QR code verification** — every credential has a QR code pointing to a shareable public verification page, scannable from a printed certificate, LinkedIn, or resume.
+- 📄 **Shareable credential page** — `/credential/[tokenId]` gives anyone a self-contained, wallet-independent view of any credential with status, issuer, Etherscan link, and IPFS metadata.
 - 🏗️ **Issuer role management** — owner-only `addIssuer` / `removeIssuer`; issuers mint and revoke.
-- 🔄 **Revocation** — certificates can be revoked on-chain (e.g. disciplinary action), instantly reflected in verification.
-- 💾 **Persistent mint history** — issued certificates are stored locally in the browser, surviving navigation and reloads (with a one-click clear).
-- 🔗 **Fully verified on Etherscan** with a live Sepolia deployment.
-- 🧪 **Working end-to-end demo** — connect wallet → pin metadata → mint → view session history → revoke → verify.
+- 🔄 **Revocation** — credentials can be revoked on-chain (e.g. disciplinary action), instantly reflected in verification.
+- 🎓 **Credential types** — supports academic certificates, professional certifications, skill badges, course completions, and achievements — same contract, different metadata.
+- 💾 **Persistent mint history** — issued credentials are stored locally in the browser, surviving navigation and reloads (with a one-click clear).
+- ✅ **Fully verified on Etherscan** with a live Sepolia deployment.
+- 🧪 **Working end-to-end demo** — connect wallet → pin metadata → mint → share via QR → verify → revoke.
 
 ---
 
@@ -115,10 +118,11 @@ npm run dev                  # http://localhost:3000
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Landing page with contract status + verify search |
-| `/issue` | Issuer dashboard — connect wallet, mint & revoke certificates |
-| `/verify` | Public, read-only certificate verification (no wallet needed) |
-| `/api/pin` | Server route that pins metadata JSON to IPFS via Pinata |
+| `/` | Landing page with contract status + quick verify search |
+| `/issue` | Issuer dashboard — connect wallet, mint & revoke credentials |
+| `/credential/[tokenId]` | Shareable public credential page with QR code (no wallet needed) |
+| `/verify` | Public, read-only credential verification by address or token ID |
+| `/api/pin` | Server route that pins credential metadata JSON to IPFS via Pinata |
 
 ---
 
@@ -140,9 +144,10 @@ Verified source: [`contracts/contracts/SoulboundCertificate.sol`](contracts/cont
 
 ## How to Use
 
-1. **Issue** — open `/issue`, connect a whitelisted issuer wallet on Sepolia, fill recipient `0x…`, student name, course, date (and optional grade), then **Pin & Mint Certificate**.
-2. **Revoke** — from session history, hit **Revoke** on any minted token.
-3. **Verify** — open `/verify`, paste the student's wallet address or token ID. No wallet, no fee, instant.
+1. **Issue** — open `/issue`, connect a whitelisted issuer wallet on Sepolia, pick a credential type, fill recipient `0x…`, holder name, course/skill, date (and optional grade), then **Pin & Mint**.
+2. **Share** — open the credential page (`/credential/[tokenId]`), copy its link or scan its QR code. Paste it on LinkedIn, a resume, or print it — anyone can verify it directly.
+3. **Verify** — open `/verify` or scan the QR, paste the wallet address or token ID. No wallet, no fee, instant.
+4. **Revoke** — from the issuer's session history, hit **Revoke** on any minted token; it flips to invalid instantly everywhere.
 
 ---
 

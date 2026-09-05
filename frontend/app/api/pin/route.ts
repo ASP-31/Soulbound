@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 const PINATA_API = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
 
-const REQUIRED_ATTRS = ["Student Name", "Course", "Issue Date", "Issuer"];
+const REQUIRED_ATTRS = ["Credential Type", "Student Name", "Course", "Issue Date", "Issuer"];
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 function isString(value: unknown): value is string {

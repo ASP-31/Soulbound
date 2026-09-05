@@ -1,9 +1,12 @@
+import Link from "next/link";
+import { QRCodeSVG } from "qrcode.react";
 import {
   Aperture,
   BadgeCheck,
   CalendarDays,
   ExternalLink,
   GraduationCap,
+  Link2,
   ShieldX,
   Trophy,
   User,
@@ -172,6 +175,26 @@ export function CertificateCard({ info }: CertificateCardProps) {
           <span className="max-w-[55%] truncate font-mono text-[11px] text-zinc-600">
             {info.tokenURI}
           </span>
+        )}
+      </div>
+
+      <div className="mt-3 flex items-center justify-between gap-3 border-t border-zinc-800/80 pt-3">
+        <Link
+          href={`/credential/${info.tokenId.toString()}`}
+          className="inline-flex items-center gap-1.5 rounded-md border border-zinc-700 bg-zinc-900 px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-blue-400 transition-colors hover:border-blue-500/50 hover:text-blue-300"
+        >
+          <Link2 className="h-3 w-3" /> Shareable page
+        </Link>
+        {typeof window !== "undefined" && (
+          <QRCodeSVG
+            value={`${window.location.origin}/credential/${info.tokenId.toString()}`}
+            size={64}
+            marginSize={0}
+            bgColor="#ffffff"
+            fgColor="#18181b"
+            className="rounded border border-zinc-800 bg-white p-1"
+            title={`Verify credential #${info.tokenId.toString()}`}
+          />
         )}
       </div>
     </div>

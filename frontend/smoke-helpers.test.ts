@@ -34,8 +34,8 @@ async function main() {
     getContractAddress() === CONTRACT_ADDRESS,
   );
   check(
-    "fallback resolves to zero address",
-    !isContractConfigured && CONTRACT_ADDRESS === ZERO_ADDRESS,
+    "resolved address is configured (non-zero)",
+    isContractConfigured && CONTRACT_ADDRESS !== ZERO_ADDRESS,
   );
   check(
     "shortenAddress",

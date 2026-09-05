@@ -48,8 +48,9 @@ export default function Home() {
           .
         </h1>
         <p className="max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
-          Whitelisted issuers mint soulbound ERC-721 certificates to student
-          wallets, anchored to IPFS metadata and publicly verifiable by anyone —
+          Whitelisted issuers mint soulbound ERC-721 credentials representing
+          skills, achievements, and academic work directly to a recipient&apos;s
+          wallet — anchored to IPFS metadata and publicly verifiable by anyone,
           wallet or no wallet.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row">

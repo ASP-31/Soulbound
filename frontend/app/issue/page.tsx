@@ -40,6 +40,14 @@ import type {
   RevokeState,
 } from "@/types";
 
+const CREDENTIAL_TYPES = [
+  "Academic Certificate",
+  "Professional Certification",
+  "Skill Certification",
+  "Course Completion",
+  "Achievement",
+] as const;
+
 const STATUS_LABELS: Record<IssueStatus, string> = {
   idle: "Ready",
   pinning: "Pinning metadata to IPFS…",
@@ -71,6 +79,9 @@ export default function IssuePage() {
   const [recipient, setRecipient] = useState("");
   const [studentName, setStudentName] = useState("");
   const [course, setCourse] = useState("");
+  const [credentialType, setCredentialType] = useState<string>(
+    CREDENTIAL_TYPES[0],
+  );
   const [issueDate, setIssueDate] = useState(() => toDateInputValue(new Date()));
   const [grade, setGrade] = useState("");
 
@@ -167,6 +178,7 @@ export default function IssuePage() {
       description:
         "On-chain verifiable credential issued via the Soulbound Certificate protocol. This token is soulbound and non-transferable.",
       attributes: [
+        { trait_type: "Credential Type", value: credentialType },
         { trait_type: "Student Name", value: studentName.trim() },
         { trait_type: "Course", value: course.trim() },
         { trait_type: "Issue Date", value: issueDate },
@@ -381,8 +393,8 @@ export default function IssuePage() {
           Issuer Dashboard
         </h1>
         <p className="mt-1 text-sm text-zinc-400">
-          Mint soulbound certificates to student wallets and manage them in this
-          session.
+          Mint soulbound credentials — academic, skill-based, professional — to
+          a recipient&apos;s wallet and manage them in this session.
         </p>
       </header>
 
@@ -475,7 +487,7 @@ export default function IssuePage() {
 
           <label className="block">
             <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-zinc-400">
-              Course
+              Course / Skill
             </span>
             <input
               value={course}
@@ -484,6 +496,24 @@ export default function IssuePage() {
               disabled={!isWhitelisted}
               className={inputClass}
             />
+          </label>
+
+          <label className="block">
+            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Credential Type
+            </span>
+            <select
+              value={credentialType}
+              onChange={(event) => setCredentialType(event.target.value)}
+              disabled={!isWhitelisted}
+              className={`${inputClass} appearance-none`}
+            >
+              {CREDENTIAL_TYPES.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
           </label>
 
           <div className="grid grid-cols-2 gap-4">
