@@ -8,17 +8,26 @@ Built for **HackBlox 2026 · Web3 Track · Problem Statement 02** — *On-Chain 
 
 ## Highlights
 
-- 🧠 **Soulbound ERC-721** — tokens are minted to a wallet and can *never* be transferred or sold (overridden `_update`).
-- 🛡️ **Tamper-proof metadata** — credential details are pinned to IPFS, and only the content-addressed `ipfs://` hash lives on-chain. Editing the record changes the hash — instant fraud detection.
-- ✅ **Zero-friction verification** — anyone can verify a credential with just the wallet address or token ID, no wallet or login required.
-- 🔗 **QR code verification** — every credential has a QR code pointing to a shareable public verification page, scannable from a printed certificate, LinkedIn, or resume.
-- 📄 **Shareable credential page** — `/credential/[tokenId]` gives anyone a self-contained, wallet-independent view of any credential with status, issuer, Etherscan link, and IPFS metadata.
-- 🏗️ **Issuer role management** — owner-only `addIssuer` / `removeIssuer`; issuers mint and revoke.
-- 🔄 **Revocation** — credentials can be revoked on-chain (e.g. disciplinary action), instantly reflected in verification.
-- 🎓 **Credential types** — supports academic certificates, professional certifications, skill badges, course completions, and achievements — same contract, different metadata.
-- 💾 **Persistent mint history** — issued credentials are stored locally in the browser, surviving navigation and reloads (with a one-click clear).
-- ✅ **Fully verified on Etherscan** with a live Sepolia deployment.
-- 🧪 **Working end-to-end demo** — connect wallet → pin metadata → mint → share via QR → verify → revoke.
+1. 🧠 **Soulbound ERC-721** — tokens are minted to a wallet and can *never* be transferred or sold (overridden `_update`).
+2. 🛡️ **Tamper-evident metadata** — credential details are content-addressed and pinned to IPFS, while only the `ipfs://` URI is stored on-chain. Any modification creates a different CID, while the original on-chain reference remains unchanged.
+3. 🏗️ **Trusted issuer management** — owner-only `addIssuer` / `removeIssuer`; every credential records its issuer on-chain.
+4. 🔄 **On-chain revocation** — issuers can invalidate credentials when necessary, with the revoked status instantly reflected across public verification.
+5. ✅ **Zero-friction public verification** — anyone can verify a credential with just the wallet address or token ID, no wallet or login required.
+6. 🔗 **QR code verification** — every credential has a QR code pointing to a shareable public verification page, scannable from a printed certificate, LinkedIn, or resume.
+7. 📄 **Shareable credential pages** — `/credential/[tokenId]` gives anyone a self-contained, wallet-independent view of any credential with status, issuer, Etherscan link, and IPFS metadata.
+8. 🎓 **Multiple credential types** — supports academic certificates, professional certifications, skill badges, course completions, and achievements — same contract, different metadata.
+9. ✅ **Etherscan-verified contract** with a live Sepolia deployment.
+10. 🧪 **End-to-end demo** — connect wallet → pin metadata → mint → share via QR → verify → revoke.
+
+---
+
+## Why Soulbound?
+
+Credentials represent an individual's **identity, skills, and achievements** — not an asset that should be traded.
+
+A traditional NFT can be transferred or sold, which makes it unsuitable for representing academic or professional credentials. `soulbound.cert` therefore uses non-transferable ERC-721 tokens that remain permanently bound to the recipient's wallet.
+
+> **Your achievements should be portable and verifiable — but never transferable.**
 
 ---
 
@@ -58,7 +67,16 @@ Built for **HackBlox 2026 · Web3 Track · Problem Statement 02** — *On-Chain 
 
 1. Issuer fills the form → metadata JSON is pinned to Pinata → `ipfs://<hash>` returned.
 2. Only that hash (`uri`) is minted on-chain via `issueCertificate(recipient, uri)`.
-3. Verification reads the on-chain `tokenURI`, resolves it from IPFS, and shows the certificate — if the metadata changed, the hash won't match on-chain.
+3. Verification reads the on-chain `tokenURI`, resolves the referenced metadata from IPFS, and displays the credential. Because IPFS uses content addressing, modified content produces a different CID and cannot silently replace the metadata referenced on-chain.
+
+---
+
+## Frontend Experience
+
+- 💾 **Persistent local mint history** — issued credentials survive navigation and page reloads (with a one-click clear).
+- 👛 **Wallet-aware issuer dashboard** — role-aware minting and revocation for whitelisted issuers.
+- ⏳ **Transparent transaction feedback** — pinning, signature, and confirmation states with live Etherscan links.
+- 🌐 **Public wallet-independent verification** — no extension, login, or fee required to verify.
 
 ---
 
