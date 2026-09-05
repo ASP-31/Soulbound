@@ -1,0 +1,45 @@
+# Environment variables (NEVER COMMIT SENSITIVE FILES)
+.env
+.env.*
+!.env.example
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Hardhat & Smart Contracts
+artifacts/
+cache/
+typechain-types/
+coverage/
+coverage.json
+
+# Next.js & Frontend
+.next/
+out/
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS & Editor
+.DS_Store
+*.pem
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

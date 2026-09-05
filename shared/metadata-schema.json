@@ -1,0 +1,12 @@
+{
+  "name": "string — certificate title, e.g. 'B.Tech Computer Science'",
+  "description": "string",
+  "image": "string — optional ipfs:// or https:// URL",
+  "attributes": [
+    { "trait_type": "Student Name", "value": "string" },
+    { "trait_type": "Course",       "value": "string" },
+    { "trait_type": "Issue Date",   "value": "YYYY-MM-DD" },
+    { "trait_type": "Grade",        "value": "string" },
+    { "trait_type": "Issuer",       "value": "0x… address" }
+  ]
+}
